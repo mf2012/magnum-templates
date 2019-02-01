@@ -78,3 +78,15 @@ class RACAtomicK8sTemplateDefinition(kftd.K8sFedoraTemplateDefinition):
     def template_path(self):
         return os.path.join(os.path.dirname(os.path.realpath(__file__)),
                             'templates/k8s/kubecluster.yaml')
+
+class RACUbuntuK8sTemplateDefinition(kftd.K8sFedoraTemplateDefinition):
+    """Kubernetes template for Ubuntu VM on RAC."""
+
+    @property
+    def driver_module_path(self):
+        return __name__[:__name__.rindex('.')]
+
+    @property
+    def template_path(self):
+        return os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                            'templates/k8s-ubuntu/kubecluster.yaml')
