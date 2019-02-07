@@ -5,6 +5,6 @@
 set -ux
 
 _prefix=${CONTAINER_INFRA_PREFIX:-docker.io/openstackmagnum/}
-docker pull ${_prefix}heat-container-agent:rawhide
+docker pull ${_prefix}heat-container-agent
 
-systemctl start heat-container-agent
+docker run -d ${_prefix}heat-container-agent

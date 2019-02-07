@@ -469,9 +469,8 @@ resources:
     properties:
       group: ungrouped
       # JT
-      config: {get_file: fragments/make-cert.sh}
+      config: {get_file: fragments/make-cert.py}
 
-  # JT
   install_docker:
     type: "OS::Heat::SoftwareConfig"
     properties:
@@ -489,22 +488,21 @@ resources:
     type: OS::Heat::SoftwareConfig
     properties:
       group: ungrouped
-      # MF
-      # config:
-      #   str_replace:
-      #     params:
-      #       # JT
-      #       $configure_docker_storage_driver: {get_file: ../common/fragments/configure_docker_storage_driver_atomic.sh}
-      #     # JT
-      #     template: {get_file: ../common/fragments/configure-docker-storage.sh}
       config: {get_file: fragments/configure-docker-storage.sh}
 
-  configure_etcd:
-    type: OS::Heat::SoftwareConfig
+  add_docker_daemon_options:
+    type: "OS::Heat::SoftwareConfig"
     properties:
       group: ungrouped
       # JT
-      config: {get_file: fragments/configure-etcd.sh}
+      config: {get_file: fragments/add-docker-daemon-options.sh}
+
+  # configure_etcd:
+  #   type: OS::Heat::SoftwareConfig
+  #   properties:
+  #     group: ungrouped
+  #     # JT
+  #     config: {get_file: fragments/configure-etcd.sh}
 
   write_kube_os_config:
     type: OS::Heat::SoftwareConfig
@@ -562,13 +560,6 @@ resources:
       # JT
       config: {get_file: fragments/wc-notify-master.sh}
 
-  disable_selinux:
-    type: OS::Heat::SoftwareConfig
-    properties:
-      group: ungrouped
-      # JT
-      config: {get_file: fragments/disable-selinux.sh}
-
   add_proxy:
     type: OS::Heat::SoftwareConfig
     properties:
@@ -589,13 +580,14 @@ resources:
       parts:
         # MF
         # - config: {get_resource: install_openstack_ca}
-        - config: {get_resource: disable_selinux}
+        #- config: {get_resource: disable_selinux}
         - config: {get_resource: write_heat_params}
-        - config: {get_resource: configure_etcd}
-        - config: {get_resource: write_kube_os_config}
         - config: {get_resource: configure_docker_storage}
-        - config: {get_resource: configure_kubernetes}
+        - config: {get_resource: install_docker}
+        - config: {get_resource: remove_docker_key}
         - config: {get_resource: make_cert}
+        - config: {get_resource: write_kube_os_config}
+        - config: {get_resource: configure_kubernetes}
         - config: {get_resource: add_proxy}
         - config: {get_resource: start_container_agent}
         - config: {get_resource: enable_services}

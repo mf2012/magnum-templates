@@ -31,6 +31,9 @@ if [ -n "$DOCKER_VOLUME_SIZE" ] && [ "$DOCKER_VOLUME_SIZE" -gt 0 ]; then
 
     mkfs.xfs -f ${device_path}
     echo "${device_path} /var/lib/docker xfs defaults 0 0" >> /etc/fstab
+    if [ ! -d /var/lib/docker ]; then
+      mkdir /var/lib/docker
+    fi
     mount -a
 
 fi

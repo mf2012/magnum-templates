@@ -343,19 +343,19 @@ resources:
   #         # JT
   #         template: {get_file: ../common/fragments/atomic-install-openstack-ca.sh}
 
- # JT
- install_docker:
-   type: "OS::Heat::SoftwareConfig"
-   properties:
-     group: ungrouped
-     config: {get_file: fragments/install-docker.sh}
+  # JT
+  install_docker:
+    type: "OS::Heat::SoftwareConfig"
+    properties:
+      group: ungrouped
+      config: {get_file: fragments/install-docker.sh}
 
- remove_docker_key:
-   type: "OS::Heat::SoftwareConfig"
-   properties:
-     group: ungrouped
-       # JT
-     config: {get_file: fragments/remove-docker-key.sh}
+  remove_docker_key:
+    type: "OS::Heat::SoftwareConfig"
+    properties:
+      group: ungrouped
+      # JT
+      config: {get_file: fragments/remove-docker-key.sh}
 
   write_kube_os_config:
     type: OS::Heat::SoftwareConfig
@@ -384,6 +384,13 @@ resources:
       #     # JT
       #     template: {get_file: ../common/fragments/configure-docker-storage.sh}
       config: {get_file: fragments/configure-docker-storage.sh}
+
+  add_docker_daemon_options:
+    type: "OS::Heat::SoftwareConfig"
+    properties:
+      group: ungrouped
+      # JT
+      config: {get_file: fragments/add-docker-daemon-options.sh}
 
   configure_docker_registry:
     type: OS::Heat::SoftwareConfig
@@ -445,12 +452,12 @@ resources:
             wc_notify: {get_attr: [minion_wait_handle, curl_cli]}
             verify_ca: {get_param: verify_ca}
 
-  disable_selinux:
-    type: OS::Heat::SoftwareConfig
-    properties:
-      group: ungrouped
-      # JT
-      config: {get_file: fragments/disable-selinux.sh}
+  # disable_selinux:
+  #   type: OS::Heat::SoftwareConfig
+  #   properties:
+  #     group: ungrouped
+  #     # JT
+  #     config: {get_file: fragments/disable-selinux.sh}
 
   add_proxy:
     type: OS::Heat::SoftwareConfig
@@ -465,11 +472,13 @@ resources:
       parts:
         # MF
         #- config: {get_resource: install_openstack_ca}
-        - config: {get_resource: disable_selinux}
+        #- config: {get_resource: disable_selinux}
         - config: {get_resource: write_heat_params}
+        - config: {get_resource: configure_docker_storage}
+        - config: {get_resource: install_docker}
+        - config: {get_resource: remove_docker_key}
         - config: {get_resource: write_kube_os_config}
         - config: {get_resource: make_cert}
-        - config: {get_resource: configure_docker_storage}
         - config: {get_resource: configure_docker_registry}
         - config: {get_resource: configure_kubernetes_minion}
         - config: {get_resource: network_service}
