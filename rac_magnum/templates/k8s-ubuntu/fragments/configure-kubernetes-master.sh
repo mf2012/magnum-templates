@@ -25,4 +25,11 @@ result=$(kubeadm init \
  --service-dns-domain "${DNS_CLUSTER_DOMAIN}" \
  --apiserver-advertise-address ${KUBE_API_PRIVATE_ADDRESS})
 
-echo $result
+#echo $result
+
+# Enable unsecured interface on localhost
+sed -i '/insecure-port=0/a \    - --insecure-bind-address=127.0.0.1' /etc/kubernetes/manifests/kube-apiserver.yaml
+sed -i 's/insecure-port=0/insecure-port=8080/' /etc/kubernetes/manifests/kube-apiserver.yaml
+
+api_id=$(docker ps -qf name=k8s_kube-apiserver*)
+docker stop $api_id && docker rm $api_id
