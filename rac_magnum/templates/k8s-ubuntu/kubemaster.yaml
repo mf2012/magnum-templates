@@ -591,7 +591,7 @@ resources:
         - config: {get_resource: add_proxy}
         - config: {get_resource: start_container_agent}
         - config: {get_resource: enable_services}
-        - config: {get_resource: write_network_config}
+        #- config: {get_resource: write_network_config}
         - config: {get_resource: network_config_service}
         - config: {get_resource: kube_apiserver_to_kubelet_role}
         - config: {get_resource: core_dns_service}

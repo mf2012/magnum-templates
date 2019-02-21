@@ -14,7 +14,7 @@ systemctl daemon-reload
 # done
 
 echo "starting services"
-for service in etcd.service docker ; do
+for service in docker ; do
     echo "activating service $service"
     systemctl enable $service
     systemctl --no-block start $service
