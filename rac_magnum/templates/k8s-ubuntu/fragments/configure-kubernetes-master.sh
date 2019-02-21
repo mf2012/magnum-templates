@@ -24,3 +24,5 @@ result=$(kubeadm init \
  --service-cidr ${PORTAL_NETWORK_CIDR} \
  --service-dns-domain "${DNS_CLUSTER_DOMAIN}" \
  --apiserver-advertise-address ${KUBE_API_PRIVATE_ADDRESS})
+
+echo $result
