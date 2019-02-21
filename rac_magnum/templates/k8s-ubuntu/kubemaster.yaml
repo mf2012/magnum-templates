@@ -155,6 +155,11 @@ parameters:
     description: Private IP address of the Kubernetes master server.
     default: ""
 
+  api_ip_address:
+    type: string
+    description: Private IP address of the Kubernetes master server.
+    default: ""
+
   fixed_network:
     type: string
     description: Network from which to allocate fixed addresses.

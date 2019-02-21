@@ -23,8 +23,8 @@ EOF
 cat > $WC_NOTIFY_SERVICE <<EOF
 [Unit]
 Description=Notify Heat
-After=docker.service etcd.service
-Requires=docker.service etcd.service
+After=docker.service
+Requires=docker.service
 [Service]
 Type=oneshot
 ExecStart=$WC_NOTIFY_BIN
