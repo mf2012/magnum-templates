@@ -4,7 +4,6 @@
 
 mkdir -p /etc/kubernetes/
 KUBE_OS_CLOUD_CONFIG=/etc/kubernetes/kube_openstack_config
-cp /etc/pki/tls/certs/ca-bundle.crt /etc/kubernetes/ca-bundle.crt
 
 # Generate a the configuration for Kubernetes services
 # to talk to OpenStack Neutron and Cinder
