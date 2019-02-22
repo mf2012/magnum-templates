@@ -522,12 +522,12 @@ resources:
       # JT
       config: {get_file: fragments/configure-kubernetes-master.sh}
 
-  write_network_config:
-    type: OS::Heat::SoftwareConfig
-    properties:
-      group: ungrouped
-      # JT
-      config: {get_file: fragments/write-network-config.sh}
+  # write_network_config:
+  #   type: OS::Heat::SoftwareConfig
+  #   properties:
+  #     group: ungrouped
+  #     # JT
+  #     config: {get_file: fragments/write-network-config.sh}
 
   network_config_service:
     type: OS::Heat::SoftwareConfig
