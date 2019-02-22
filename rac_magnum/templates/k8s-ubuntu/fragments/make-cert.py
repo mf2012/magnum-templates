@@ -76,7 +76,7 @@ def _get_public_ip():
 def _build_subject_alt_names(config):
     ips = {
         config['KUBE_NODE_IP'],
-        config['API_IP_ADDRESS'],
+        config['KUBE_NODE_PUBLIC_IP'],
         '127.0.0.1',
     }
 
@@ -88,7 +88,7 @@ def _build_subject_alt_names(config):
     public_ip = _get_public_ip()
     if public_ip:
         ips.add(public_ip)
-    api_ip = config['API_IP_ADDRESS']
+    api_ip = config['KUBE_NODE_PUBLIC_IP']
     if api_ip:
         ips.add(api_ip)
     subject_alt_names = ['IP:%s' % ip for ip in ips]
