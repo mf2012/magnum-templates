@@ -473,8 +473,7 @@ resources:
     type: OS::Heat::SoftwareConfig
     properties:
       group: ungrouped
-      # JT
-      config: {get_file: fragments/make-cert.py}
+      config: {get_file: fragments/make-cert.sh}
 
   install_docker:
     type: "OS::Heat::SoftwareConfig"
