@@ -550,12 +550,12 @@ resources:
       # JT
       config: {get_file: fragments/kube-apiserver-to-kubelet-role.sh}
 
-  core_dns_service:
-    type: OS::Heat::SoftwareConfig
-    properties:
-      group: ungrouped
-      # JT
-      config: {get_file: fragments/core-dns-service.sh}
+  # core_dns_service:
+  #   type: OS::Heat::SoftwareConfig
+  #   properties:
+  #     group: ungrouped
+  #     # JT
+  #     config: {get_file: fragments/core-dns-service.sh}
 
   master_wc_notify:
     type: OS::Heat::SoftwareConfig
